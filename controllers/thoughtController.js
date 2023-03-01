@@ -57,6 +57,24 @@ const thoughtControl = {
         res.json(userData);
       });
   },
+  // Update thoughts
+  updateThought({ params, body }, res) {
+    Thought.findByIdAndUpdate({ _id: params.thoughtId }, body, {
+      new: true,
+      runValidators: true,
+    })
+      .then((thoughtData) => {
+        if (!thoughtData) {
+          res.status(400).json({ message: "Thought not found!" });
+          return;
+        }
+        res.json(thoughtData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  },
 
   // Remove thought
   removeThought({ params }, res) {
@@ -94,28 +112,26 @@ const thoughtControl = {
       });
   },
 
-   // Delete reaction
-   deleteReaction({params}, res){
+  // Delete reaction
+  deleteReaction({ params }, res) {
     Thought.findByIdAndUpdate(
-        {_id: params.thoughtId},
-        {$pull: {reactions: {_id:params.reactionId}}},
-        {new: true}
+      { _id: params.thoughtId },
+      { $pull: { reactions: { _id: params.reactionId } } },
+      { new: true }
     )
-        .then(thoughtData => {
-            if (!thoughtData) {
-                res.status(400).json({ message: 'No Thought Found!'});
-                return;
-            }
-            res.json(thoughtData)
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(400).json(err)
-        });
-   } 
-
-
-}
+      .then((thoughtData) => {
+        if (!thoughtData) {
+          res.status(400).json({ message: "No Thought Found!" });
+          return;
+        }
+        res.json(thoughtData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  },
+};
 
 
 
