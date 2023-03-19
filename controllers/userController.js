@@ -1,4 +1,6 @@
-const { User } = require("../models");
+const { User, Thought } = require("../models");
+
+
 // User routes
 
 const userControl = {
@@ -42,10 +44,10 @@ const userControl = {
   },
 
   // Creates a user
-  createUser({ body }, res) {
-    User.create(body)
-      .then((userData) => res.json(userData))
-      .catch((err) => res.status(400).json(err));
+  createUser(req, res) {
+    User.create(req.body)
+    .then((userData) => {res.json(userData);})
+      .catch((err) => res.status(500).json(err));
   },
 
   // Edits existing user

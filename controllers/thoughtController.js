@@ -42,10 +42,10 @@ const thoughtControl = {
   //Create Thought
   createThought({ params, body }, res) {
     Thought.create(body)
-      .then((thoughtData) => {
+      .then(({_id}) => {
         return User.findByIdAndUpdate(
           { _id: params.userId },
-          { $push: { thoughts: thoughtData._id } },
+          { $push: { thoughts: _id } },
           { new: true }
         );
       })
@@ -99,6 +99,8 @@ const thoughtControl = {
       { $push: { reactions: body } },
       { new: true, runValidators: true }
     )
+      .populate({ path: "reactions", select: "-__v" })
+      .select("-__v")
       .then((thoughtData) => {
         if (!thoughtData) {
           res.status(400).json({ message: "Thought not found!" });

@@ -4,10 +4,11 @@ const {
     findAllThought,
     findThoughtById,
     createThought,
+    updateThought,
     removeThought,
     deleteReaction,
     addReaction
-} = require('../../controllers/thoughtControllers');
+} = require('../../controllers/thoughtController');
 const { findByIdAndUpdate } = require("../../models/Thought");
 
 router.route('/').get(findAllThought);

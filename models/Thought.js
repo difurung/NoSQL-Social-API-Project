@@ -3,7 +3,7 @@ const dateFormat = require("../utils/dateFormat");
 
 const ReactionSchema = new Schema(
   {
-    _id: {
+    reactionId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId()
     },
@@ -51,8 +51,9 @@ const ThoughtSchema = new Schema(
         },
         reactions: [ReactionSchema]
     },
-    {
+   {
         toJSON: {
+            //virtuals:true,
             getters: true
         },
         id: false
