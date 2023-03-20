@@ -41,43 +41,25 @@ const thoughtControl = {
   },
 
   //Create Thought
-  // createThought({ params, body }, res) {
-  //   Thought.create(body)
-  //     .then(({ _id }) => {
-  //       return User.findByIdAndUpdate(
-  //         { _id: params.userId },
-  //         { $push: { thoughts: _id } },
-  //         { new: true }
-  //       );
-  //     })
-  //     .then((userData) => {
-  //       if (!userData) {
-  //         res.status(400).json({ message: "No User found!" });
-  //         return;
-  //       }
-  //       res.json(userData);
-  //     });
-  // },
-
   createThought({ params, body }, res) {
-    Thought.findOneAndUpdate(
-      { _id: req.params.thoughtId },
-      { $set: req.body },
-      { runValidators: true, new: true }
-    )
-      .then((thoughtData) => {
-        if (!thoughtData) {
-          res.status(400).json({ message: "Thought not found!" });
+    Thought.create(body)
+      .then(({ _id }) => {
+        return User.findByIdAndUpdate(
+          { _id: params.userId },
+          { $push: { thoughts: _id } },
+          { new: true }
+        );
+      })
+      .then((userData) => {
+        if (!userData) {
+          res.status(400).json({ message: "No User found!" });
           return;
         }
-        res.json(thoughtData);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json(err);
+        res.json(userData);
       });
   },
 
+  
   // Update thoughts
   updateThought({ params, body }, res) {
     Thought.findByIdAndUpdate({ _id: params.thoughtId }, body, {
