@@ -89,7 +89,7 @@ const userControl = {
   // add a friend
   addFriend({ params }, res) {
     User.findByIdAndUpdate(
-      { _id: params.userId },
+      { _id: params.id },
       { $push: { friends: params.friendId } },
       { new: true, runValidators: true }
     )
