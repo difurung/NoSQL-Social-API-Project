@@ -9,7 +9,7 @@ const {
     deleteReaction,
     addReaction
 } = require('../../controllers/thoughtController');
-const { findByIdAndUpdate } = require("../../models/Thought");
+//const { findByIdAndUpdate } = require("../../models/Thought");
 
 router.route('/').get(findAllThought);
 

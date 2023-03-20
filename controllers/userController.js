@@ -93,6 +93,8 @@ const userControl = {
       { $push: { friends: params.friendId } },
       { new: true, runValidators: true }
     )
+      .populate({ path: "friends", select: "-__v" })
+      .select("-__v")
       .then((userData) => {
         if (!userData) {
           res.status(400).json({ message: "User not found!" });

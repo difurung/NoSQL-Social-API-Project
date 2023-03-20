@@ -5,13 +5,13 @@ const ReactionSchema = new Schema(
   {
     reactionId: {
       type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId()
+      default: () => new Types.ObjectId(),
     },
     reactionBody: {
       type: String,
       required: true,
       minLength: 1,
-      maxLength: 200
+      maxLength: 200,
     },
     username: {
       type: String,
@@ -20,9 +20,9 @@ const ReactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: (createdAtVal) =>
-        dateFormat(createdAtVal).format("MMM DD, YYYY [at] hh:mm a")
+      get: (createdAtVal) => dateFormat(createdAtVal),
     },
+    
   },
   {
     toJSON: {
@@ -63,3 +63,4 @@ const ThoughtSchema = new Schema(
 const Thought = model('Thought', ThoughtSchema);
 
 module.exports = Thought;
+
